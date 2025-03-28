@@ -86,9 +86,11 @@ document.getElementById("myBtn").addEventListener("click", () => {
             <h2 class="text-3xl font-semibold text-pink-300 mb-4">Deep Dive into DOM</h2>
             <p class="text-lg leading-relaxed mb-4">
                 The DOM isn't just about manipulation—it's a full representation of your document. 
-                Every node has properties and methods:
+                Every node has properties and methods, and we often work with collections of nodes like HTMLCollection and NodeList.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Node Types and Methods -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="bg-gray-800 p-4 rounded-lg">
                     <h3 class="text-xl text-yellow-300">Node Types</h3>
                     <ul class="list-disc list-inside">
@@ -105,6 +107,62 @@ document.getElementById("myBtn").addEventListener("click", () => {
                         <li>appendChild()</li>
                         <li>remove()</li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- HTMLCollection and NodeList -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl text-teal-300 mb-4">HTMLCollection vs NodeList</h3>
+                <p class="text-lg mb-4">
+                    When you select multiple elements in the DOM, you get either an <span class="text-yellow-300">HTMLCollection</span> or a <span class="text-yellow-300">NodeList</span>. Here’s what they mean:
+                </p>
+                
+                <div class="mb-6">
+                    <h4 class="text-xl text-pink-300 mb-2">Definition of HTMLCollection</h4>
+                    <p class="text-lg italic">
+                        An HTMLCollection is a live, array-like object containing a collection of HTML elements, automatically updated when the DOM changes.
+                    </p>
+                    <h4 class="text-xl text-pink-300 mt-4 mb-2">Definition of NodeList</h4>
+                    <p class="text-lg italic">
+                        A NodeList is a static, array-like object containing a collection of DOM nodes (elements, text, etc.), representing a snapshot of the DOM at the time it was created.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="text-xl text-pink-300">HTMLCollection</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Live collection (updates automatically)</li>
+                            <li>Returned by methods like <code>getElementsByTagName()</code></li>
+                            <li>Only contains element nodes</li>
+                            <li>No <code>forEach()</code> method</li>
+                        </ul>
+                        <pre class="bg-gray-900 p-4 rounded-lg mt-2 text-sm">
+                            <code>
+// HTML: <p>One</p><p>Two</p>
+let paras = document.getElementsByTagName("p");
+console.log(paras[0].textContent); // "One"
+// Add a new <p> dynamically, paras updates!
+                            </code>
+                        </pre>
+                    </div>
+                    <div>
+                        <h4 class="text-xl text-pink-300">NodeList</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Static collection (snapshot, doesn’t update)</li>
+                            <li>Returned by <code>querySelectorAll()</code></li>
+                            <li>Can include all node types (elements, text, etc.)</li>
+                            <li>Has <code>forEach()</code> method</li>
+                        </ul>
+                        <pre class="bg-gray-900 p-4 rounded-lg mt-2 text-sm">
+                            <code>
+// HTML: <p>One</p><p>Two</p>
+let paras = document.querySelectorAll("p");
+paras.forEach(p => p.textContent = "Changed!");
+// New <p> added later won’t be affected
+                            </code>
+                        </pre>
+                    </div>
                 </div>
             </div>
         </section>
